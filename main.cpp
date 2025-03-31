@@ -35,7 +35,7 @@ int main() {
             break;
         case 6:
             system("cls");
-            manager.modificarEstudiante();
+            manager.modifyStudent();
             break;
         case 7:
             system("cls");
