@@ -37,6 +37,8 @@ public:
     void searchStudent();
     void deleteStudent();
     void modifyStudent();
+
+	void displayFileContent(string filePath);
 };
 
 #endif // ESTUDIANTE_H

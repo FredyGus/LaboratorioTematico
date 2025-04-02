@@ -8,6 +8,7 @@ using namespace std;
 
 // Implementación de la clase Estudiante
 
+
 Estudiante::Estudiante() : nombre(""), edad(0), calificacion(0.0f) {}
 
 Estudiante::Estudiante(const string& nombre, int edad, float calificacion)
@@ -52,7 +53,8 @@ void EstudianteManager::menu() {
 	cout << "4. Buscar Estudiante" << endl;
 	cout << "5. Eliminar Estudiante" << endl;
 	cout << "6. Modificar Estudiante" << endl;
-	cout << "7. Salir" << endl;
+	cout << "7. Mostrar el contenido de un archivo" << endl;
+	cout << "8. Salir" << endl;
 	cout << "Opcion: ";
 }
 
@@ -89,7 +91,7 @@ void EstudianteManager::addStudent() {
 	cin.ignore();  // Limpiar el buffer
 
 	// Agregar el registro al final del archivo
-	ofstream file("estudiantes.txt", ios::app);
+	ofstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt", ios::app);
 	if (file.is_open()) {
 		file << nuevo.getNombre() << ","
 			<< nuevo.getEdad() << ","
@@ -105,7 +107,7 @@ void EstudianteManager::addStudent() {
 }
 
 void EstudianteManager::showStudents() {
-	ifstream file("estudiantes.txt");
+	ifstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 	if (!file.is_open()) {
 		cout << "No se pudo abrir el archivo." << endl;
 		cout << "Presione enter para continuar...";
@@ -143,7 +145,7 @@ void EstudianteManager::showStudents() {
 }
 
 void EstudianteManager::averageStudents() {
-	ifstream file("estudiantes.txt");
+	ifstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 	if (!file.is_open()) {
 		cout << "No se pudo abrir el archivo." << endl;
 		cout << "Presione enter para continuar...";
@@ -176,7 +178,7 @@ void EstudianteManager::searchStudent() {
 	cout << "Ingrese el nombre del estudiante a buscar: ";
 	string searchName;
 	getline(cin, searchName);
-	ifstream file("estudiantes.txt");
+	ifstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 	if (!file.is_open()) {
 		cout << "No se pudo abrir el archivo." << endl;
 		cout << "Presione enter para continuar...";
@@ -217,14 +219,14 @@ void EstudianteManager::deleteStudent() {
 	cout << "Ingrese el nombre del estudiante a eliminar: ";
 	string searchName;
 	getline(cin, searchName);
-	ifstream file("estudiantes.txt");
+	ifstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 	if (!file.is_open()) {
 		cout << "No se pudo abrir el archivo." << endl;
 		cout << "Presione enter para continuar...";
 		cin.get();
 		return;
 	}
-	ofstream tempFile("temp.txt");
+	ofstream tempFile("\\\\192.168.146.197\\archivos\\temp.txt");
 	bool found = false;
 	string line;
 	while (getline(file, line)) {
@@ -245,13 +247,13 @@ void EstudianteManager::deleteStudent() {
 	file.close();
 	tempFile.close();
 	if (found) {
-		remove("estudiantes.txt");
-		rename("temp.txt", "estudiantes.txt");
+		remove("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
+		rename("\\\\192.168.146.197\\archivos\\temp.txt", "\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 		cout << "Estudiante eliminado exitosamente." << endl;
 	}
 	else {
 		cout << "No se encontro el estudiante." << endl;
-		remove("temp.txt");
+		remove("\\\\192.168.146.197\\archivos\\temp.txt");
 	}
 	cout << "Presione enter para continuar...";
 	cin.get();
@@ -262,7 +264,7 @@ void EstudianteManager::modifyStudent() {
 	string searchName;
 	getline(cin, searchName);
 
-	ifstream file("estudiantes.txt");
+	ifstream file("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 	if (!file.is_open()) {
 		cout << "No se pudo abrir el archivo." << endl;
 		cout << "Presione enter para continuar...";
@@ -270,7 +272,7 @@ void EstudianteManager::modifyStudent() {
 		return;
 	}
 
-	ofstream tempFile("temp.txt");
+	ofstream tempFile("\\\\192.168.146.197\\archivos\\temp.txt");
 	bool found = false;
 	string line;
 	while (getline(file, line)) {
@@ -330,15 +332,35 @@ void EstudianteManager::modifyStudent() {
 	tempFile.close();
 
 	if (found) {
-		remove("estudiantes.txt");
-		rename("temp.txt", "estudiantes.txt");
+		remove("\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
+		rename("\\\\192.168.146.197\\archivos\\temp.txt", "\\\\192.168.146.197\\archivos\\estudiantes-Brayan-Fredy.txt");
 
 		cout << "Estudiante modificado exitosamente." << endl;
 	}
 	else {
 		cout << "No se encontro el estudiante." << endl;
-		remove("temp.txt");
+		remove("\\\\192.168.146.197\\archivos\\temp.txt");
 	}
 	cout << "Presione enter para continuar...";
+	cin.get();
+}
+
+void EstudianteManager::displayFileContent(string filePath) {
+	ifstream file(filePath);
+	if (!file.is_open()) {
+		cout << "No se pudo abrir el archivo: " << filePath << endl;
+		cout << "Presion ENTER para continuar...";
+		cin.get();
+		return;
+	}
+
+	string line;
+	cout << "\n--- Contenido de " << filePath << " ---\n";
+	while (getline(file, line)) {
+		cout << line << "\n";
+	}
+	cout << "\n--- Fin del archivo ---\n";
+	file.close();
+	cout << "Presione ENTER para continuar...";
 	cin.get();
 }

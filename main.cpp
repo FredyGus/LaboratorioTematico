@@ -37,7 +37,19 @@ int main() {
             system("cls");
             manager.modifyStudent();
             break;
-        case 7:
+        case 7:{
+            system("cls");
+            string fileName = "";
+            cout << "Ingrese el nombre del archivo: ";
+            getline(cin, fileName);
+
+            string basePath = "\\\\192.168.146.197\\archivos\\";
+            string fullPath = basePath + fileName + ".txt";
+
+            manager.displayFileContent(fullPath);
+            break;
+        }
+        case 8:
             system("cls");
             cout << "Saliendo del programa..." << endl;
             break;
@@ -46,6 +58,6 @@ int main() {
             Sleep(1500);
             break;
         }
-    } while (opcion != 7);
+    } while (opcion != 8);
     return 0;
 }

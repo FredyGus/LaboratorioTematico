@@ -1,2 +1,2 @@
-Fredy,24,60
 Araceli,17,99.000000
+Alejandro,40,100.000000
